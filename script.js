@@ -2,7 +2,6 @@ console.log("Script Loaded");
 
 // Firebase configuration (replace with your Firebase project's config)
 const firebaseConfig = {
-    const firebaseConfig = {
   apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34",
   authDomain: "flip-clock-timer.firebaseapp.com",
   databaseURL: "https://flip-clock-timer-default-rtdb.firebaseio.com",
@@ -20,6 +19,9 @@ const database = firebase.database();
 const hoursTop = document.querySelector(".hours-top");
 const minutesTop = document.querySelector(".minutes-top");
 const secondsTop = document.querySelector(".seconds-top");
+const hoursBottom = document.querySelector(".hours-bottom");
+const minutesBottom = document.querySelector(".minutes-bottom");
+const secondsBottom = document.querySelector(".seconds-bottom");
 
 // Admin modal elements
 const adminButton = document.getElementById("open-admin");
@@ -77,20 +79,43 @@ function updateClock(startTime, duration) {
     const elapsedTime = now - startTime;
     const remainingTime = duration - elapsedTime;
 
+    if (remainingTime < 0) {
+        clearInterval(timerInterval);
+        return; // Stop updating when timer ends
+    }
+
     const hours = Math.floor(remainingTime / (1000 * 60 * 60));
     const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-    hoursTop.textContent = String(hours).padStart(2, '0');
-    minutesTop.textContent = String(minutes).padStart(2, '0');
-    secondsTop.textContent = String(seconds).padStart(2, '0');
+    // Update display with flip effect
+    flipUpdate(hoursTop, hoursBottom, String(hours).padStart(2, '0'));
+    flipUpdate(minutesTop, minutesBottom, String(minutes).padStart(2, '0'));
+    flipUpdate(secondsTop, secondsBottom, String(seconds).padStart(2, '0'));
+}
+
+function flipUpdate(topElement, bottomElement, newValue) {
+    const currentValue = topElement.textContent;
+    if (currentValue !== newValue) {
+        // Set new value for the top and bottom
+        bottomElement.textContent = newValue;
+        topElement.parentElement.style.transform = 'rotateY(180deg)';
+        bottomElement.parentElement.style.transform = 'rotateY(0deg)';
+        setTimeout(() => {
+            topElement.textContent = newValue;
+            topElement.parentElement.style.transform = 'rotateY(0deg)';
+            bottomElement.parentElement.style.transform = 'rotateY(180deg)';
+        }, 300);
+    }
 }
 
 // Listen for changes to the timer in Firebase
+let timerInterval;
 database.ref("timer").on("value", (snapshot) => {
     const timerData = snapshot.val();
     if (timerData && timerData.running) {
-        const intervalId = setInterval(() => {
+        if (timerInterval) clearInterval(timerInterval); // Clear existing interval
+        timerInterval = setInterval(() => {
             updateClock(timerData.startTime, timerData.duration);
         }, 1000);
     }
