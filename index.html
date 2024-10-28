@@ -2,42 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fancy Flip Clock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flip Clock Timer</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <div class="flip-clock">
       <div class="clock-segment">
-        <div class="digit top" id="hours-top">00</div>
-        <div class="digit bottom" id="hours-bottom">00</div>
+        <div id="hours-top" class="digit">00</div>
+        <div id="hours-bottom" class="digit">00</div>
       </div>
-      <div class="clock-segment">:</div>
+      <div>:</div>
       <div class="clock-segment">
-        <div class="digit top" id="minutes-top">00</div>
-        <div class="digit bottom" id="minutes-bottom">00</div>
+        <div id="minutes-top" class="digit">00</div>
+        <div id="minutes-bottom" class="digit">00</div>
       </div>
-      <div class="clock-segment">:</div>
+      <div>:</div>
       <div class="clock-segment">
-        <div class="digit top" id="seconds-top">00</div>
-        <div class="digit bottom" id="seconds-bottom">00</div>
+        <div id="seconds-top" class="digit">00</div>
+        <div id="seconds-bottom" class="digit">00</div>
       </div>
     </div>
-    <button class="start-button" id="open-admin">Admin Control</button>
-  </div>
 
-  <!-- Admin Modal -->
-  <div id="admin-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-button" id="close-modal">&times;</span>
-      <h2>Enter Admin Passkey</h2>
-      <input type="password" id="admin-passkey" placeholder="Passkey">
-      <button id="start-button">Start Timer</button>
+    <button id="open-admin" class="start-button">Admin Control</button>
+
+    <!-- Modal for Admin Control -->
+    <div id="admin-modal" class="modal">
+      <div class="modal-content">
+        <span id="close-modal" class="close-button">&times;</span>
+        <h2>Enter Admin Passkey</h2>
+        <input type="password" id="admin-passkey" placeholder="Passkey">
+        <button id="start-button">Start Timer</button>
+      </div>
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
