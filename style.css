@@ -1,25 +1,33 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #282c34;
-    color: white;
-    font-family: 'Arial', sans-serif;
-}
-
-.clock {
-    font-size: 5em;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
 }
 
 .flip-clock {
-    display: flex;
+  font-size: 5em;
+  display: flex;
+  gap: 0.2em;
 }
 
 .digit {
-    margin: 0 10px;
-    background: #444;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+  background: #000;
+  padding: 0.2em 0.1em;
+  border-radius: 5px;
+}
+
+#admin-control {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#admin-passkey {
+  padding: 5px;
+  font-size: 16px;
 }
