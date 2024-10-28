@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flip Clock Timer</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Fancy Flip Clock Timer</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="flip-clock">
-      <div class="clock-segment">
-        <div id="hours-top" class="digit">00</div>
-        <div id="hours-bottom" class="digit">00</div>
-      </div>
-      <div>:</div>
-      <div class="clock-segment">
-        <div id="minutes-top" class="digit">00</div>
-        <div id="minutes-bottom" class="digit">00</div>
-      </div>
-      <div>:</div>
-      <div class="clock-segment">
-        <div id="seconds-top" class="digit">00</div>
-        <div id="seconds-bottom" class="digit">00</div>
-      </div>
+    <div class="container">
+        <div class="flip-clock">
+            <div class="flip-digit">
+                <span class="hours-top">00</span>
+                <span class="hours-bottom">00</span>
+            </div>
+            <div class="colon">:</div>
+            <div class="flip-digit">
+                <span class="minutes-top">00</span>
+                <span class="minutes-bottom">00</span>
+            </div>
+            <div class="colon">:</div>
+            <div class="flip-digit">
+                <span class="seconds-top">00</span>
+                <span class="seconds-bottom">00</span>
+            </div>
+        </div>
+
+        <button id="open-admin" class="admin-button">Admin Control</button>
+
+        <!-- Modal for admin control -->
+        <div id="admin-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close-button">&times;</span>
+                <h2>Enter Admin Passkey</h2>
+                <input type="password" id="admin-passkey" placeholder="Passkey" />
+                <button id="start-button" class="start-button">Start Timer</button>
+            </div>
+        </div>
     </div>
 
-    <button id="open-admin" class="start-button">Admin Control</button>
-
-    <!-- Modal for Admin Control -->
-    <div id="admin-modal" class="modal">
-      <div class="modal-content">
-        <span id="close-modal" class="close-button">&times;</span>
-        <h2>Enter Admin Passkey</h2>
-        <input type="password" id="admin-passkey" placeholder="Passkey">
-        <button id="start-button">Start Timer</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Add Firebase libraries from the non-modular version -->
-<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
-  <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
