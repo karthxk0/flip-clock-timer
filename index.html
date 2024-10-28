@@ -6,39 +6,53 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="flip-clock">
-            <div class="flip-digit">
-                <span class="hours-top">00</span>
-                <span class="hours-bottom">00</span>
-            </div>
-            <div class="colon">:</div>
-            <div class="flip-digit">
-                <span class="minutes-top">00</span>
-                <span class="minutes-bottom">00</span>
-            </div>
-            <div class="colon">:</div>
-            <div class="flip-digit">
-                <span class="seconds-top">00</span>
-                <span class="seconds-bottom">00</span>
+    <div class="clock">
+        <div class="flip-unit">
+            <div class="flip-card">
+                <div class="top hours-top">00</div>
+                <div class="bottom hours-bottom">00</div>
             </div>
         </div>
-
-        <button id="open-admin" class="admin-button">Admin Control</button>
-
-        <!-- Modal for admin control -->
-        <div id="admin-modal" class="modal">
-            <div class="modal-content">
-                <span id="close-modal" class="close-button">&times;</span>
-                <h2>Enter Admin Passkey</h2>
-                <input type="password" id="admin-passkey" placeholder="Passkey" />
-                <button id="start-button" class="start-button">Start Timer</button>
+        <div class="separator">:</div>
+        <div class="flip-unit">
+            <div class="flip-card">
+                <div class="top minutes-top">00</div>
+                <div class="bottom minutes-bottom">00</div>
+            </div>
+        </div>
+        <div class="separator">:</div>
+        <div class="flip-unit">
+            <div class="flip-card">
+                <div class="top seconds-top">00</div>
+                <div class="bottom seconds-bottom">00</div>
             </div>
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
+    <button id="open-admin">Admin Control</button>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Enter Admin Passkey</h2>
+            <input type="password" id="admin-passkey" placeholder="Passkey">
+            <button id="submit-passkey">Submit Passkey</button>
+
+            <div id="timer-settings" style="display: none;">
+                <h3>Set Timer</h3>
+                <label for="set-hours">Hours:</label>
+                <input type="number" id="set-hours" min="0" max="23">
+                <label for="set-minutes">Minutes:</label>
+                <input type="number" id="set-minutes" min="0" max="59">
+                <label for="set-seconds">Seconds:</label>
+                <input type="number" id="set-seconds" min="0" max="59">
+                <button id="start-timer">Start Timer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
