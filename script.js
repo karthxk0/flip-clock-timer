@@ -1,6 +1,6 @@
 console.log("Script Loaded");
 
-// Firebase Configuration
+// Firebase configuration (replace with your Firebase project's config)
 const firebaseConfig = {
   apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34",
   authDomain: "flip-clock-timer.firebaseapp.com",
@@ -11,78 +11,74 @@ const firebaseConfig = {
   appId: "1:123043916705:web:fa661b4cba492c0028f9e0"
 };
 
-// Initialize Firebase using compat library
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Get clock digit elements
+// Get references to clock elements
 const hoursTop = document.querySelector(".hours-top");
-const hoursBottom = document.querySelector(".hours-bottom");
 const minutesTop = document.querySelector(".minutes-top");
-const minutesBottom = document.querySelector(".minutes-bottom");
 const secondsTop = document.querySelector(".seconds-top");
-const secondsBottom = document.querySelector(".seconds-bottom");
 
-const modal = document.getElementById("admin-modal");
-const openAdminButton = document.getElementById("open-admin");
-const closeModalButton = document.getElementById("close-modal");
+// Admin modal elements
+const adminButton = document.getElementById("open-admin");
+const adminModal = document.getElementById("admin-modal");
+const closeModal = document.getElementById("close-modal");
 const startButton = document.getElementById("start-button");
+const adminPasskey = document.getElementById("admin-passkey");
 
-const adminPasskey = "12345"; // Set your admin passkey
-
-openAdminButton.addEventListener("click", () => {
-  console.log("Admin Control button clicked!");
-  modal.style.display = "flex";
+// Event to open admin control modal
+adminButton.addEventListener("click", () => {
+    console.log("Admin Control button clicked!");
+    adminModal.style.display = "block";
 });
 
-closeModalButton.addEventListener("click", () => {
-  console.log("Close button clicked!");
-  modal.style.display = "none";
+// Event to close modal
+closeModal.addEventListener("click", () => {
+    adminModal.style.display = "none";
 });
 
+// Start button event inside the modal
 startButton.addEventListener("click", () => {
-  const enteredPasskey = document.getElementById("admin-passkey").value;
-  console.log("Start Button Clicked, Entered Passkey:", enteredPasskey);
-  if (enteredPasskey === adminPasskey) {
-    const startTime = Date.now();
-    database.ref("timer").set({
-      startTime: startTime,
-      running: true
-    });
-    modal.style.display = "none";
-  } else {
-    alert("Incorrect Passkey");
-  }
+    const enteredPasskey = adminPasskey.value;
+    console.log(`Start Button Clicked, Entered Passkey: ${enteredPasskey}`);
+    
+    // Set a simple passkey check (replace "12345" with your actual passkey)
+    if (enteredPasskey === "12345") {
+        adminModal.style.display = "none";
+        
+        // Start the timer in Firebase
+        database.ref("timer").set({
+            running: true,
+            startTime: Date.now()
+        });
+    } else {
+        alert("Incorrect passkey!");
+    }
 });
 
-// Function to update the flip clock digits
-const updateClock = (hours, minutes, seconds) => {
-  hoursTop.textContent = hoursBottom.textContent = formatTime(hours);
-  minutesTop.textContent = minutesBottom.textContent = formatTime(minutes);
-  secondsTop.textContent = secondsBottom.textContent = formatTime(seconds);
-};
+// Function to update the clock display
+function updateClock(startTime) {
+    const now = Date.now();
+    const elapsedTime = now - startTime;
 
-// Function to format time with two digits
-const formatTime = (time) => (time < 10 ? "0" + time : time);
+    const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+    const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
 
-// Real-time synchronization logic
-let intervalId;
+    hoursTop.textContent = String(hours).padStart(2, '0');
+    minutesTop.textContent = String(minutes).padStart(2, '0');
+    secondsTop.textContent = String(seconds).padStart(2, '0');
+}
+
+// Listen for changes to the timer in Firebase
 database.ref("timer").on("value", (snapshot) => {
-  const data = snapshot.val();
-  if (data && data.running) {
-    const startTime = data.startTime;
+    const timerData = snapshot.val();
+    if (timerData && timerData.running) {
+        console.log("Timer is running!");
 
-    if (intervalId) clearInterval(intervalId);
-
-    intervalId = setInterval(() => {
-      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-      const hours = Math.floor(elapsedTime / 3600);
-      const minutes = Math.floor((elapsedTime % 3600) / 60);
-      const seconds = elapsedTime % 60;
-      updateClock(hours, minutes, seconds);
-    }, 1000);
-  } else {
-    if (intervalId) clearInterval(intervalId);
-    updateClock(0, 0, 0);
-  }
+        setInterval(() => {
+            updateClock(timerData.startTime);
+        }, 1000);
+    }
 });
