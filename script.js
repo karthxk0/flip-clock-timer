@@ -24,12 +24,18 @@ const secondsTop = document.querySelector(".seconds-top");
 const adminButton = document.getElementById("open-admin");
 const adminModal = document.getElementById("admin-modal");
 const closeModal = document.getElementById("close-modal");
-const startButton = document.getElementById("start-button");
+const submitPasskey = document.getElementById("submit-passkey");
 const adminPasskey = document.getElementById("admin-passkey");
+const timerSettings = document.getElementById("timer-settings");
+
+// Timer setting elements
+const setHours = document.getElementById("set-hours");
+const setMinutes = document.getElementById("set-minutes");
+const setSeconds = document.getElementById("set-seconds");
+const startTimerButton = document.getElementById("start-timer");
 
 // Event to open admin control modal
 adminButton.addEventListener("click", () => {
-    console.log("Admin Control button clicked!");
     adminModal.style.display = "block";
 });
 
@@ -38,33 +44,41 @@ closeModal.addEventListener("click", () => {
     adminModal.style.display = "none";
 });
 
-// Start button event inside the modal
-startButton.addEventListener("click", () => {
+// Submit admin passkey
+submitPasskey.addEventListener("click", () => {
     const enteredPasskey = adminPasskey.value;
-    console.log(`Start Button Clicked, Entered Passkey: ${enteredPasskey}`);
-    
-    // Set a simple passkey check (replace "12345" with your actual passkey)
     if (enteredPasskey === "12345") {
-        adminModal.style.display = "none";
-        
-        // Start the timer in Firebase
-        database.ref("timer").set({
-            running: true,
-            startTime: Date.now()
-        });
+        timerSettings.style.display = "block";
     } else {
         alert("Incorrect passkey!");
     }
 });
 
+// Start timer button
+startTimerButton.addEventListener("click", () => {
+    const hours = parseInt(setHours.value) || 0;
+    const minutes = parseInt(setMinutes.value) || 0;
+    const seconds = parseInt(setSeconds.value) || 0;
+
+    const totalMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    database.ref("timer").set({
+        running: true,
+        startTime: Date.now(),
+        duration: totalMilliseconds
+    });
+
+    adminModal.style.display = "none";
+});
+
 // Function to update the clock display
-function updateClock(startTime) {
+function updateClock(startTime, duration) {
     const now = Date.now();
     const elapsedTime = now - startTime;
+    const remainingTime = duration - elapsedTime;
 
-    const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-    const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
     hoursTop.textContent = String(hours).padStart(2, '0');
     minutesTop.textContent = String(minutes).padStart(2, '0');
@@ -75,10 +89,8 @@ function updateClock(startTime) {
 database.ref("timer").on("value", (snapshot) => {
     const timerData = snapshot.val();
     if (timerData && timerData.running) {
-        console.log("Timer is running!");
-
-        setInterval(() => {
-            updateClock(timerData.startTime);
+        const intervalId = setInterval(() => {
+            updateClock(timerData.startTime, timerData.duration);
         }, 1000);
     }
 });
