@@ -1,100 +1,61 @@
 body {
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #282c34;
+    font-family: Arial, sans-serif;
 }
 
-.container {
-  text-align: center;
+.clock {
+    display: flex;
+    gap: 10px;
+    color: #fff;
+    font-size: 4rem;
 }
 
-.flip-clock {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 5em;
+.flip-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.clock-segment {
-  display: flex;
-  flex-direction: column;
+.flip-card {
+    position: relative;
 }
 
-.digit {
-  display: block;
-  background: #333;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
+.flip-card .top, .flip-card .bottom {
+    background: #444;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
 }
 
-.start-button {
-  margin-top: 30px;
-  padding: 15px 30px;
-  background: #0f8b8d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.separator {
+    font-size: 4rem;
+    color: #fff;
 }
 
-.start-button:hover {
-  background: #026773;
-}
-
-/* Modal Styles */
 .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content {
-  background: #1e3d59;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
-.close-button {
-  color: #fff;
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-#admin-passkey {
-  padding: 10px;
-  font-size: 16px;
-  margin: 20px 0;
-  border-radius: 5px;
-  width: 80%;
-}
-
-#start-button {
-  background: #0f8b8d;
-  padding: 15px 30px;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#start-button:hover {
-  background: #026773;
+.close {
+    cursor: pointer;
+    align-self: flex-end;
 }
