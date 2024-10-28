@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Clock Timer</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <meta charset="UTF-8">
+  <title>Flip Clock</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="clock" id="clock">
-        <div class="flip-clock">
-            <div class="digit" id="hours">00</div>
-            <div class="digit" id="minutes">00</div>
-            <div class="digit" id="seconds">00</div>
-        </div>
-    </div>
-    <button id="startButton">Start Timer</button>
-    <script src="script.js"></script>
+  <div id="admin-control">
+    <input type="password" id="admin-passkey" placeholder="Enter Admin Passkey">
+    <button id="start-button">Start Timer</button>
+  </div>
+  <div class="flip-clock" id="flip-clock">
+    <div class="digit" id="hours">00</div>:
+    <div class="digit" id="minutes">00</div>:
+    <div class="digit" id="seconds">00</div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
