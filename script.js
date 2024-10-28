@@ -1,6 +1,6 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34 ,
+    apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34" ,
     authDomain: "flip-clock-timer.firebaseapp.com",
     databaseURL: "https://flip-clock-timer-default-rtdb.firebaseio.com",
     projectId: "flip-clock-timer",
