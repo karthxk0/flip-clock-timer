@@ -28,6 +28,7 @@ const startButton = document.getElementById("start-button");
 const adminPasskey = "12345"; // Set your admin passkey
 
 openAdminButton.addEventListener("click", () => {
+  console.log("Admin Control button clicked!");
   modal.style.display = "flex";
 });
 
@@ -56,20 +57,29 @@ const updateClock = (hours, minutes, seconds) => {
   secondsTop.textContent = secondsBottom.textContent = formatTime(seconds);
 };
 
-// Realtime Listener to sync timer across all clients
+// Function to format time with two digits
+const formatTime = (time) => (time < 10 ? "0" + time : time);
+
+// Real-time synchronization logic
+let intervalId;
 database.ref("timer").on("value", (snapshot) => {
   const data = snapshot.val();
   if (data && data.running) {
     const startTime = data.startTime;
-    setInterval(() => {
+    
+    if (intervalId) clearInterval(intervalId); // Clear any existing intervals
+
+    // Start a new interval to update the clock every second
+    intervalId = setInterval(() => {
       const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
       const hours = Math.floor(elapsedTime / 3600);
       const minutes = Math.floor((elapsedTime % 3600) / 60);
       const seconds = elapsedTime % 60;
       updateClock(hours, minutes, seconds);
     }, 1000);
+  } else {
+    // Stop the clock if the timer is not running
+    if (intervalId) clearInterval(intervalId);
+    updateClock(0, 0, 0); // Reset clock to 00:00:00
   }
 });
-
-// Helper function to format time with two digits
-const formatTime = (time) => (time < 10 ? "0" + time : time);
