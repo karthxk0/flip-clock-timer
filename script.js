@@ -1,4 +1,17 @@
-const socket = io();
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 let timerInterval;
 let startTime;
@@ -9,12 +22,15 @@ document.getElementById('startButton').addEventListener('click', () => {
 
 function startTimer() {
     startTime = Date.now();
-    socket.emit('startTimer', startTime);
+    database.ref('timer').set({ startTime: startTime });
 }
 
-socket.on('syncTimer', (startTime) => {
-    if (timerInterval) clearInterval(timerInterval);
-    startTimerDisplay(startTime);
+database.ref('timer').on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.startTime) {
+        if (timerInterval) clearInterval(timerInterval);
+        startTimerDisplay(data.startTime);
+    }
 });
 
 function startTimerDisplay(startTime) {
