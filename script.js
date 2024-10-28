@@ -15,6 +15,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Get clock digit elements
+const hoursTop = document.querySelector(".hours-top");
+const hoursBottom = document.querySelector(".hours-bottom");
+const minutesTop = document.querySelector(".minutes-top");
+const minutesBottom = document.querySelector(".minutes-bottom");
+const secondsTop = document.querySelector(".seconds-top");
+const secondsBottom = document.querySelector(".seconds-bottom");
+
 const modal = document.getElementById("admin-modal");
 const openAdminButton = document.getElementById("open-admin");
 const closeModalButton = document.getElementById("close-modal");
