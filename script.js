@@ -1,12 +1,12 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34,
+    authDomain: "flip-clock-timer.firebaseapp.com",
+    databaseURL: "https://flip-clock-timer-default-rtdb.firebaseio.com",
+    projectId: "flip-clock-timer",
+    storageBucket: "flip-clock-timer.appspot.com",
+    messagingSenderId: "123043916705",
+    appId: "1:123043916705:web:fa661b4cba492c0028f9e0"
 };
 
 // Initialize Firebase
