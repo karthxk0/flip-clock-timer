@@ -1,4 +1,6 @@
-// Your web app's Firebase configuration
+console.log("Script Loaded");
+
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34",
   authDomain: "flip-clock-timer.firebaseapp.com",
@@ -9,16 +11,9 @@ const firebaseConfig = {
   appId: "1:123043916705:web:fa661b4cba492c0028f9e0"
 };
 
-// Initialize Firebase
+// Initialize Firebase using compat library
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-
-const hoursTop = document.getElementById("hours-top");
-const hoursBottom = document.getElementById("hours-bottom");
-const minutesTop = document.getElementById("minutes-top");
-const minutesBottom = document.getElementById("minutes-bottom");
-const secondsTop = document.getElementById("seconds-top");
-const secondsBottom = document.getElementById("seconds-bottom");
 
 const modal = document.getElementById("admin-modal");
 const openAdminButton = document.getElementById("open-admin");
@@ -33,11 +28,13 @@ openAdminButton.addEventListener("click", () => {
 });
 
 closeModalButton.addEventListener("click", () => {
+  console.log("Close button clicked!");
   modal.style.display = "none";
 });
 
 startButton.addEventListener("click", () => {
   const enteredPasskey = document.getElementById("admin-passkey").value;
+  console.log("Start Button Clicked, Entered Passkey:", enteredPasskey);
   if (enteredPasskey === adminPasskey) {
     const startTime = Date.now();
     database.ref("timer").set({
@@ -66,10 +63,9 @@ database.ref("timer").on("value", (snapshot) => {
   const data = snapshot.val();
   if (data && data.running) {
     const startTime = data.startTime;
-    
-    if (intervalId) clearInterval(intervalId); // Clear any existing intervals
 
-    // Start a new interval to update the clock every second
+    if (intervalId) clearInterval(intervalId);
+
     intervalId = setInterval(() => {
       const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
       const hours = Math.floor(elapsedTime / 3600);
@@ -78,8 +74,7 @@ database.ref("timer").on("value", (snapshot) => {
       updateClock(hours, minutes, seconds);
     }, 1000);
   } else {
-    // Stop the clock if the timer is not running
     if (intervalId) clearInterval(intervalId);
-    updateClock(0, 0, 0); // Reset clock to 00:00:00
+    updateClock(0, 0, 0);
   }
 });
