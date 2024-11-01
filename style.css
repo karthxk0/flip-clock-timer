@@ -39,8 +39,8 @@ body, html {
 
 .flip-unit {
     position: relative;
-    width: 450px;
-    height: 450px; /* Changed to circular */
+    width: 400px;
+    height: 400px; /* Changed to circular */
     margin: 0 20px;
     perspective: 1000px;
 }
@@ -65,7 +65,7 @@ body, html {
     align-items: center;
     backface-visibility: hidden;
     color: #fff;
-    font-size: 8rem;
+    font-size: 10rem;
     font-weight: bold;
     border-radius: 50%; /* Circular shape */
 }
@@ -80,7 +80,7 @@ body, html {
 }
 
 .separator {
-    font-size: 8rem;
+    font-size: 10rem;
     color: #dbe2ef;
     margin: 0 10px;
 }
