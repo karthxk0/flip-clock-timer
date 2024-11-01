@@ -2,34 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fancy Flip Clock Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Flip Clock Timer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="clock">
-        <div class="flip-unit">
-            <div class="flip-card">
-                <div class="top hours-top">00</div>
-                <div class="bottom hours-bottom">00</div>
+    <div class="fullscreen-container">
+        <div class="clock">
+            <div class="flip-unit">
+                <div class="flip-card">
+                    <div class="top hours-top">00</div>
+                    <div class="bottom hours-bottom">00</div>
+                </div>
             </div>
-        </div>
-        <div class="separator">:</div>
-        <div class="flip-unit">
-            <div class="flip-card">
-                <div class="top minutes-top">00</div>
-                <div class="bottom minutes-bottom">00</div>
+            <div class="separator">:</div>
+            <div class="flip-unit">
+                <div class="flip-card">
+                    <div class="top minutes-top">00</div>
+                    <div class="bottom minutes-bottom">00</div>
+                </div>
             </div>
-        </div>
-        <div class="separator">:</div>
-        <div class="flip-unit">
-            <div class="flip-card">
-                <div class="top seconds-top">00</div>
-                <div class="bottom seconds-bottom">00</div>
+            <div class="separator">:</div>
+            <div class="flip-unit">
+                <div class="flip-card">
+                    <div class="top seconds-top">00</div>
+                    <div class="bottom seconds-bottom">00</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <button id="open-admin">Admin Control</button>
+    <button id="open-admin" class="admin-btn">Admin Control</button>
 
     <div id="admin-modal" class="modal">
         <div class="modal-content">
@@ -51,7 +54,7 @@
         </div>
     </div>
 
-    <!-- Use the legacy Firebase SDK scripts -->
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="script.js"></script>
