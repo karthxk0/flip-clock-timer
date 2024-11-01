@@ -39,8 +39,8 @@ body, html {
 
 .flip-unit {
     position: relative;
-    width: 300px;
-    height: 300px; /* Changed to circular */
+    width: 300px; /* Default size for larger screens */
+    height: 300px;
     margin: 0 20px;
     perspective: 1000px;
 }
@@ -65,7 +65,7 @@ body, html {
     align-items: center;
     backface-visibility: hidden;
     color: #fff;
-    font-size: 10rem;
+    font-size: 12rem; /* Default font size */
     font-weight: bold;
     border-radius: 50%; /* Circular shape */
 }
@@ -80,11 +80,12 @@ body, html {
 }
 
 .separator {
-    font-size: 10rem;
+    font-size: 12rem; /* Default separator font size */
     color: #dbe2ef;
     margin: 0 10px;
 }
 
+/* Modal styling */
 .modal {
     display: none;
     position: fixed;
@@ -137,4 +138,48 @@ input[type="password"] {
     margin: 5px 0 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+/* Responsive Design */
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .flip-unit {
+        width: 200px;
+        height: 200px;
+    }
+    .flip-card .top, .flip-card .bottom {
+        font-size: 6rem;
+    }
+    .separator {
+        font-size: 6rem;
+    }
+}
+
+/* Small screens (mobile devices) */
+@media (max-width: 768px) {
+    .flip-unit {
+        width: 150px;
+        height: 150px;
+    }
+    .flip-card .top, .flip-card .bottom {
+        font-size: 4rem;
+    }
+    .separator {
+        font-size: 4rem;
+    }
+}
+
+/* Compact mobile screens */
+@media (max-width: 480px) {
+    .flip-unit {
+        width: 100px;
+        height: 100px;
+    }
+    .flip-card .top, .flip-card .bottom {
+        font-size: 3rem;
+    }
+    .separator {
+        font-size: 3rem;
+    }
 }
