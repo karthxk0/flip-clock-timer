@@ -1,6 +1,6 @@
 console.log("Script Loaded");
 
-// Firebase configuration (replace with your Firebase project's config)
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34",
   authDomain: "flip-clock-timer.firebaseapp.com",
@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Get references to clock elements
+// Clock elements
 const hoursTop = document.querySelector(".hours-top");
 const minutesTop = document.querySelector(".minutes-top");
 const secondsTop = document.querySelector(".seconds-top");
@@ -23,7 +23,7 @@ const hoursBottom = document.querySelector(".hours-bottom");
 const minutesBottom = document.querySelector(".minutes-bottom");
 const secondsBottom = document.querySelector(".seconds-bottom");
 
-// Admin modal elements
+// Admin button and modal elements
 const adminButton = document.getElementById("open-admin");
 const adminModal = document.getElementById("admin-modal");
 const closeModal = document.getElementById("close-modal");
@@ -31,92 +31,75 @@ const submitPasskey = document.getElementById("submit-passkey");
 const adminPasskey = document.getElementById("admin-passkey");
 const timerSettings = document.getElementById("timer-settings");
 
-// Timer setting elements
+// Timer settings elements
 const setHours = document.getElementById("set-hours");
 const setMinutes = document.getElementById("set-minutes");
 const setSeconds = document.getElementById("set-seconds");
 const startTimerButton = document.getElementById("start-timer");
 
-// Event to open admin control modal
-adminButton.addEventListener("click", () => {
-    adminModal.style.display = "block";
-});
+// Admin button actions
+adminButton.addEventListener("click", () => adminModal.style.display = "block");
+closeModal.addEventListener("click", () => adminModal.style.display = "none");
 
-// Event to close modal
-closeModal.addEventListener("click", () => {
-    adminModal.style.display = "none";
-});
-
-// Submit admin passkey
+// Passkey submission
 submitPasskey.addEventListener("click", () => {
-    const enteredPasskey = adminPasskey.value;
-    if (enteredPasskey === "12345") {
+    if (adminPasskey.value === "12345") {  // Replace "12345" with your chosen passkey
         timerSettings.style.display = "block";
     } else {
         alert("Incorrect passkey!");
     }
 });
 
-// Start timer button
+// Start timer
 startTimerButton.addEventListener("click", () => {
     const hours = parseInt(setHours.value) || 0;
     const minutes = parseInt(setMinutes.value) || 0;
     const seconds = parseInt(setSeconds.value) || 0;
-
-    const totalMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    const duration = (hours * 3600 + minutes * 60 + seconds) * 1000;
     database.ref("timer").set({
         running: true,
         startTime: Date.now(),
-        duration: totalMilliseconds
+        duration: duration
     });
-
     adminModal.style.display = "none";
 });
 
-// Function to update the clock display
+// Flip effect and timer update
 function updateClock(startTime, duration) {
     const now = Date.now();
-    const elapsedTime = now - startTime;
-    const remainingTime = duration - elapsedTime;
-
+    const remainingTime = duration - (now - startTime);
     if (remainingTime < 0) {
         clearInterval(timerInterval);
-        return; // Stop updating when timer ends
+        return;
     }
 
-    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    const hours = Math.floor(remainingTime / 3600000);
+    const minutes = Math.floor((remainingTime % 3600000) / 60000);
+    const seconds = Math.floor((remainingTime % 60000) / 1000);
 
-    // Update display with flip effect
     flipUpdate(hoursTop, hoursBottom, String(hours).padStart(2, '0'));
     flipUpdate(minutesTop, minutesBottom, String(minutes).padStart(2, '0'));
     flipUpdate(secondsTop, secondsBottom, String(seconds).padStart(2, '0'));
 }
 
+// Flip card animation
 function flipUpdate(topElement, bottomElement, newValue) {
-    const currentValue = topElement.textContent;
-    if (currentValue !== newValue) {
-        // Set new value for the top and bottom
+    if (topElement.textContent !== newValue) {
         bottomElement.textContent = newValue;
-        topElement.parentElement.style.transform = 'rotateY(180deg)';
-        bottomElement.parentElement.style.transform = 'rotateY(0deg)';
+        topElement.parentElement.style.transform = 'rotateX(-180deg)';
         setTimeout(() => {
             topElement.textContent = newValue;
-            topElement.parentElement.style.transform = 'rotateY(0deg)';
-            bottomElement.parentElement.style.transform = 'rotateY(180deg)';
+            topElement.parentElement.style.transform = 'rotateX(0deg)';
         }, 300);
     }
 }
 
-// Listen for changes to the timer in Firebase
+// Firebase listener to sync timer across clients
 let timerInterval;
 database.ref("timer").on("value", (snapshot) => {
     const timerData = snapshot.val();
     if (timerData && timerData.running) {
-        if (timerInterval) clearInterval(timerInterval); // Clear existing interval
-        timerInterval = setInterval(() => {
-            updateClock(timerData.startTime, timerData.duration);
-        }, 1000);
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => updateClock(timerData.startTime, timerData.duration), 1000);
     }
 });
