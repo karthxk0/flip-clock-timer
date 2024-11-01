@@ -18,7 +18,7 @@ body, html {
     top: 20px;
     left: 20px;
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 1rem;
     z-index: 10;
 }
 
@@ -39,8 +39,8 @@ body, html {
 
 .flip-unit {
     position: relative;
-    width: 400px;
-    height: 400px; /* Changed to circular */
+    width: 300px;
+    height: 300px; /* Changed to circular */
     margin: 0 20px;
     perspective: 1000px;
 }
