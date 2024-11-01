@@ -65,7 +65,7 @@ body, html {
     align-items: center;
     backface-visibility: hidden;
     color: #fff;
-    font-size: 12rem; /* Default font size */
+    font-size: 10rem; /* Default font size */
     font-weight: bold;
     border-radius: 50%; /* Circular shape */
 }
@@ -80,7 +80,7 @@ body, html {
 }
 
 .separator {
-    font-size: 12rem; /* Default separator font size */
+    font-size: 10rem; /* Default separator font size */
     color: #dbe2ef;
     margin: 0 10px;
 }
