@@ -39,7 +39,7 @@ body, html {
 
 .flip-unit {
     position: relative;
-    width: 250px;
+    width: 450px;
     height: 450px; /* Changed to circular */
     margin: 0 20px;
     perspective: 1000px;
