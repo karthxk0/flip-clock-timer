@@ -22,6 +22,16 @@ body, html {
     height: 100vh;
     width: 100%;
 }
+.bio-club-header {
+    font-size: 6rem;            /* Make text large */
+    font-weight: bold;          /* Make text bold */
+    color: #3a8a3a;             /* Choose a color, for instance, green */
+    text-align: center;         /* Center-align the text */
+    margin: 20px 0;             /* Add some space around the text */
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 3px;        /* Add some spacing between letters */
+}
+
 
 .clock {
     display: flex;
