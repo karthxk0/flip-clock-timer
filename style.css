@@ -1,141 +1,111 @@
-/* Reset default styling */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    overflow: hidden;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     font-family: 'Arial', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #000428, #004e92);
+    background: #f0f0f5; /* Light background */
+    text-align: center;
+    flex-direction: column;
 }
 
-.fullscreen-container {
+.container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100%;
 }
+
 .bio-club-header {
-    font-size: 6rem;            /* Make text large */
-    font-weight: bold;          /* Make text bold */
-    color: #3a8a3a;             /* Choose a color, for instance, green */
-    text-align: center;         /* Center-align the text */
-    margin: 20px 0;             /* Add some space around the text */
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 3px;        /* Add some spacing between letters */
-}
-
-
-.clock {
-    display: flex;
-    align-items: center;
-    font-size: 12rem;
-}
-
-.flip-unit {
-    position: relative;
-    width: 200px;
-    height: 400px;
-    margin: 0 20px;
-    perspective: 1000px;
-}
-
-.flip-card {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transform: rotateX(0deg);
-    transition: transform 0.6s ease-in-out;
-}
-
-.flip-card .top,
-.flip-card .bottom {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backface-visibility: hidden;
-    color: #fff;
-    font-size: 6rem;
+    font-size: 3rem;
     font-weight: bold;
-    border-radius: 15px;
+    color: #3a8a3a;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
 }
 
-.flip-card .top {
-    background-color: #112d4e;
+#flip-clock {
+    display: flex;
+    gap: 10px;
+    font-size: 8vw; /* Relative font size for responsiveness */
 }
 
-.flip-card .bottom {
-    background-color: #3f72af;
-    transform: rotateX(180deg);
+.flip {
+    background: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    min-width: 1em;
 }
 
-.separator {
-    font-size: 12rem;
-    color: #dbe2ef;
-    margin: 0 10px;
+.flip span {
+    display: block;
+    font-weight: bold;
 }
 
+@media (max-width: 768px) {
+    .bio-club-header {
+        font-size: 2.5rem; /* Adjust header size on smaller screens */
+    }
+    #flip-clock {
+        font-size: 12vw; /* Adjust clock size on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .bio-club-header {
+        font-size: 2rem;
+    }
+    #flip-clock {
+        font-size: 14vw;
+    }
+}
+
+/* Styling for Admin Control Modal */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
+    background: #fff;
     padding: 20px;
-    width: 300px;
-    color: #333;
     border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
 }
 
 .close {
-    color: #aaa;
+    font-size: 1.5rem;
     float: right;
-    font-size: 28px;
     cursor: pointer;
 }
 
-.close:hover {
-    color: #000;
-}
-
-.admin-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
+button {
+    background-color: #3a8a3a;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1rem;
     border-radius: 5px;
-    background-color: #3f72af;
-    color: #fff;
     cursor: pointer;
-    font-size: 1.2rem;
 }
 
-input[type="number"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+button:hover {
+    background-color: #2d6a2d;
 }
