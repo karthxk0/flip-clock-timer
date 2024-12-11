@@ -41,9 +41,9 @@ const startTimerButton = document.getElementById("start-timer");
 adminButton.addEventListener("click", () => adminModal.style.display = "block");
 closeModal.addEventListener("click", () => adminModal.style.display = "none");
 
-// Passkey submission
 submitPasskey.addEventListener("click", () => {
-    if (adminPasskey.value === "12345") {  // Replace "12345" with your chosen passkey
+    const adminPasskey = process.env.REACT_APP_ADMIN_PASSKEY;
+    if (adminPasskey && adminPasskey === adminPasskeyInput.value) {
         timerSettings.style.display = "block";
     } else {
         alert("Incorrect passkey!");
