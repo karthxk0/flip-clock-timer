@@ -2,13 +2,13 @@ console.log("Script Loaded");
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBiU-q-eQmOazt3kzLzzfxjqLjwOYyVZ34",
+  authDomain: "flip-clock-timer.firebaseapp.com",
+  databaseURL: "https://flip-clock-timer-default-rtdb.firebaseio.com",
+  projectId: "flip-clock-timer",
+  storageBucket: "flip-clock-timer.appspot.com",
+  messagingSenderId: "123043916705",
+  appId: "1:123043916705:web:fa661b4cba492c0028f9e0"
 };
 
 // Initialize Firebase
@@ -41,9 +41,9 @@ const startTimerButton = document.getElementById("start-timer");
 adminButton.addEventListener("click", () => adminModal.style.display = "block");
 closeModal.addEventListener("click", () => adminModal.style.display = "none");
 
+// Passkey submission
 submitPasskey.addEventListener("click", () => {
-    const adminPasskey = process.env.REACT_APP_ADMIN_PASSKEY;
-    if (adminPasskey && adminPasskey === adminPasskeyInput.value) {
+    if (adminPasskey.value === "12345") {  // Replace "12345" with your chosen passkey
         timerSettings.style.display = "block";
     } else {
         alert("Incorrect passkey!");
